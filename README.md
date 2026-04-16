@@ -31,3 +31,29 @@ Sistema que permite analizar el uso de aplicaciones por participante a partir de
 - Hay que validar que el ID sea un numero, entero y positivo.
 - Hay que validar que si la lista esta vacia, es decir len(datos_validos)==0 muestre que no hay datos para calcular
 - Usando el except Exception as error caputramos cualquier error que no hayamos previsto
+
+## Objetos
+Clase: Participante
+Atributos:
+- id_participante
+- registros
+Métodos:
+- calcular_tiempo_total()
+- calcular_promedio()
+- calcular_uso_por_app()
+Clase: RegistroUso
+Atributos:
+- fecha
+- app
+- cantidad_uso
+- tiempo_uso
+Métodos:
+- validar_registro()
+Clase: BehaviorTracker
+Atributos:
+- lista_participantes
+Métodos:
+- cargar_datos()
+- filtrar_participante()
+- calcular_metricas()
+
