@@ -34,26 +34,32 @@ Sistema que permite analizar el uso de aplicaciones por participante a partir de
 
 ## Objetos
 Clase: Participante
+
 Atributos:
 - id_participante
 - registros
+
 Métodos:
 - calcular_tiempo_total()
 - calcular_promedio()
 - calcular_uso_por_app()
 
 Clase: RegistroUso
+
 Atributos:
 - fecha
 - app
 - cantidad_uso
 - tiempo_uso
+
 Métodos:
 - validar_registro()
 
 Clase: BehaviorTracker
+
 Atributos:
 - lista_participantes
+
 Métodos:
 - cargar_datos()
 - filtrar_participante()
