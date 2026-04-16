@@ -41,6 +41,7 @@ Métodos:
 - calcular_tiempo_total()
 - calcular_promedio()
 - calcular_uso_por_app()
+
 Clase: RegistroUso
 Atributos:
 - fecha
@@ -49,6 +50,7 @@ Atributos:
 - tiempo_uso
 Métodos:
 - validar_registro()
+
 Clase: BehaviorTracker
 Atributos:
 - lista_participantes
