@@ -7,13 +7,12 @@ def filtrar_por_participante(datos: list, id_participante: int) -> list:
     id_participante (int): ID del participante a filtrar.
 
     Retorna:
-    list: lista de registros del participante.
+    dicc: diccionario del participante o None si no existe
     """
 
-    filtrados = []
 
-    for registro in datos:
-        if registro["id_participante"] == id_participante:
-            filtrados.append(registro)
+    for participante in datos:
+        if participante["id_participante"] == id_participante:
+            return participante
 
-    return filtrados
+    return None
