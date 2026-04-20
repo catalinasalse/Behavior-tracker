@@ -3,7 +3,7 @@ def calcular_tiempo_total(datos: list) -> float:
     Calcula el tiempo total de uso sumando todos los registros.
 
     Parámetros:
-    datos (list): lista de registros.
+    registros(list): lista de registros.
 
     Retorna:
     float: tiempo total de uso.
@@ -22,7 +22,7 @@ def calcular_promedio_uso(datos: list) -> float:
     Calcula el promedio de tiempo de uso.
 
     Parámetros:
-    datos (list): lista de registros.
+    registros(list): lista de registros.
 
     Retorna:
     float: promedio de uso.
@@ -42,7 +42,7 @@ def calcular_uso_por_app(datos: list) -> dict:
     Calcula el tiempo total de uso por aplicación.
 
     Parámetros:
-    datos (list): lista de registros.
+    registros(list): lista de registros.
 
     Retorna:
     dict: diccionario con app como clave y tiempo total como valor.
