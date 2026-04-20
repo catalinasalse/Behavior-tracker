@@ -1,3 +1,5 @@
+from datetime import datetime
+
 def validar_registro(registro: dict) -> bool:
     """
     Verifica que un registro tenga tipos correctos y valores válidos.
@@ -8,6 +10,8 @@ def validar_registro(registro: dict) -> bool:
     Retorna:
     bool: True si el registro es válido, False en caso contrario.
     """
+    apps_validas = ["instagram", "whatsapp", "youtube", "tiktok"]
+
 
     if type(registro["id_participante"]) != int:
         return False
@@ -28,6 +32,17 @@ def validar_registro(registro: dict) -> bool:
         return False
 
     if registro["tiempo_uso"] < 0:
+        return False
+
+    if registro["tiempo_uso"] > 1440:
+        return False
+
+    if registro["app"] not in apps_validas:
+        return False
+
+    try:
+        datetime.strptime(registro["fecha"], "%d/%m/%Y")
+    except ValueError:
         return False
 
     return True
