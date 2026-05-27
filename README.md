@@ -1,22 +1,29 @@
 # Behavior-tracker
 
 Sistema que permite analizar el uso de aplicaciones por participante a partir de datos en un archivo CSV.
+El proyecto fue adaptado para la Actividad 7 incorporando **Pandas** para la carga, validación, filtrado y cálculo de métricas, y **Matplotlib** para la generación automática de gráficos en formato `.png`
 
 ## Funcionalidades
-- Lectura de datos
-- Validación de registros
-- Filtrado por participante
-- Cálculo de métricas:
-  - Tiempo total
-  - Promedio de uso
-  - Uso por aplicación
-- Detectar errores y validaciones 
+- Leer datos desde un archivo CSV usando Pandas.
+- Validar el dataset antes de procesarlo.
+- Detectar errores en los datos.
+- Filtrar registros por participante.
+- Calcular métricas de uso.
+- Calcular el tiempo total de uso.
+- Calcular el promedio de uso.
+- Calcular el uso por aplicación.
+- Generar gráficos con Matplotlib.
+- Crear automáticamente una carpeta llamada `graficos/`.
+- Guardar los gráficos generados en formato `.png`.
 
 ## Estructura
 - `src/`: funciones del programa
-- `datos/`: archivo CSV
+- `datos/`: BehaviorTracker_mock_data.csv
 - `diagramas/`: diagramas de flujo
-- `main.py`: programa principal
+- `graficos/`: gráficos generados automáticamente
+- main.py
+- README.md
+
 
 ## Integrantes 
  - Olivia Salmoyraghi
@@ -25,13 +32,19 @@ Sistema que permite analizar el uso de aplicaciones por participante a partir de
  - Catalina Salse
 
 ## Errores y validaciones 
-- No encontrar el archivo. Esto hace que no pueda correr el programa ya que no hay nada para leer. 
-- ID invalido. Si al pedir el ID ingresan letras o un numero no valido como por ejemplo "3.5"
-- Lista vacia. Si la lista datos_validos esta vacia puede generar un error a la hora de enocntrar el promedio
-- Hay que validar que el ID sea un numero, entero y positivo.
-- Hay que validar que si la lista esta vacia, es decir len(datos_validos)==0 muestre que no hay datos para calcular
-- Usando el except Exception as error caputramos cualquier error que no hayamos previsto
-
+- El programa utiliza bloques try y except para manejar errores durante la ejecución. Puede detectar errores como:
+- Archivo CSV no encontrado.
+- Archivo CSV vacío.
+- Columnas faltantes o incorrectas.
+- Valores vacíos.
+- Datos numéricos inválidos.
+- Valores negativos.
+- Tiempo de uso fuera del rango permitido.
+- Aplicaciones no válidas.
+- Fechas con formato incorrecto.
+- ID de participante inexistente.
+- ID ingresado por el usuario con formato incorrecto.
+  
 ## Objetos
 Clase: Participante
 
@@ -67,18 +80,37 @@ Métodos:
 
 ## Implementación de Pandas para la lectura del dataset
 
-Se podría incorporar la librería `pandas` para leer y procesar el dataset de forma más simple y ordenada.
+Para esta entrega, el programa fue adaptado para trabajar con Pandas.
 
-Actualmente, el programa trabaja con un archivo CSV y procesa los datos con funciones propias de Python. Con Pandas, el archivo podría leerse directamente como un `DataFrame`, como una tabla donde cada columna representa una variable y cada fila representa un registro.
+El archivo main.py carga los datos usando pd.read_csv(). Esto permite trabajar con los datos en forma de DataFrame, es decir, como una tabla compuesta por filas y columnas.
 
-La lectura del archivo se puede realizar de esta manera:
+El uso de Pandas permite reemplazar la lectura manual del archivo CSV y facilita el procesamiento de los datos.
 
-```python
-import pandas as pd
+# Métricas calculadas
 
-df = pd.read_csv("datos/BehaviorTracker_mock_data.csv")
-```
-Esto haria mas fácil trabajar con columnas como: id_participante, fecha, app, cantidad_uso, tiempo_uso
+El programa calcula métricas utilizando funciones de Pandas como .sum(), .mean() y .groupby().
+
+Las métricas principales son:
+
+Tiempo total de uso de un participante.
+Promedio de uso de un participante.
+Uso total por aplicación.
+
+# Implementación con Matplotlib
+
+El programa utiliza Matplotlib para generar gráficos a partir de los datos procesados.
+
+Los gráficos se guardan automáticamente en la carpeta graficos/, ubicada en la raíz del repositorio.
+
+La carpeta se crea automáticamente desde el código usando os.makedirs("graficos", exist_ok=True). Esto permite que el programa funcione aunque la carpeta todavía no exista.
+
+# Gráficos generados
+
+El programa genera tres gráficos en formato .png:
+
+uso_por_app.png: gráfico de barras que muestra el tiempo total de uso por aplicación.
+evolucion_temporal.png: gráfico de líneas que muestra la evolución del tiempo de uso por fecha.
+distribucion_tiempo.png: gráfico de caja que muestra la distribución del tiempo de uso.
 
 ## Funciones que se deberían modificar
 
@@ -90,3 +122,49 @@ Para implementar Pandas, se deberían modificar principalmente estas funciones:
 - `calcular_tiempo_total()`: podría usar `.sum()` sobre la columna `tiempo_uso`.
 
 También debería adaptarse el `main.py`, ya que el programa pasaría a trabajar con un `DataFrame` en lugar de listas o diccionarios.
+
+## Instrucciones de uso 
+1. Ejecutar el programa
+
+Abrir el proyecto y ejecutar el archivo principal:
+
+```bash
+python main.py
+
+2. Esperar la carga de datos
+
+El sistema cargará automáticamente el archivo CSV ubicado en la carpeta datos/.
+
+Luego, validará que los datos estén completos y tengan el formato correcto.
+
+3. Ingresar el ID del participante
+
+El programa pedirá ingresar el ID del participante que se desea consultar.
+
+Ejemplo:
+
+Ingrese el ID del participante: 1
+
+El ID debe ser un número entero positivo.
+
+4. Consultar los resultados
+
+Después de ingresar el ID, el sistema mostrará en pantalla las métricas principales del participante:
+
+Tiempo total de uso de aplicaciones.
+Promedio de tiempo de uso.
+Uso total por aplicación.
+
+5. Revisar los gráficos generados
+
+Al finalizar la ejecución, el programa generará automáticamente gráficos en formato .png.
+
+Estos gráficos se guardarán dentro de la carpeta:
+
+graficos/
+
+Los gráficos permiten visualizar:
+
+El uso total por aplicación.
+La evolución temporal del tiempo de uso.
+La distribución general del tiempo de uso.
