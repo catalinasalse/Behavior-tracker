@@ -1,5 +1,4 @@
 from datetime import datetime
-import pandas as pd
 
 def validar_registro(registro: dict) -> bool:
     """
