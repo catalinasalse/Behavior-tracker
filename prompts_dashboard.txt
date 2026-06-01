@@ -1,0 +1,42 @@
+PROMPT SEMILLA - ROCA
+
+Rol:
+Actuá como una persona experta en diseño de interfaces web con Streamlit y en integración de dashboards con backends modulares en Python.
+
+Objetivo:
+Quiero construir la interfaz web del proyecto Behavior Tracker para la Actividad 8. La interfaz debe estar en un archivo app.py y debe conectarse con los módulos existentes del repositorio sin cambiar la estructura general.
+
+Contexto:
+El proyecto Behavior Tracker analiza el uso de aplicaciones por participante a partir de un archivo CSV. El sistema ya cuenta con módulos para cargar datos, validar datos, procesar información, calcular métricas y generar gráficos. El archivo CSV contiene las columnas id_participante, fecha, app, cantidad_uso y tiempo_uso.
+
+Documento de diseño:
+El dashboard debe permitir cargar un archivo CSV con st.file_uploader, validar el archivo usando las funciones del backend, mostrar errores con st.error, mostrar métricas principales con st.metric y mostrar gráficos generados con Matplotlib usando st.image o st.pyplot.
+
+Acción:
+Generá el código completo de app.py. El código debe importar las funciones existentes desde src/, debe mantener main.py como programa de consola y debe agregar una interfaz clara, simple y funcional para el usuario.
+
+
+REGISTRO DE ITERACIONES E HISTORIAL DE CORRECCIONES
+
+Iteración 1:
+La IA propuso leer el CSV directamente con pandas dentro de app.py, pero eso no respetaba completamente la consigna porque no conectaba el dashboard con las funciones del backend.
+
+Prompt de corrección:
+Corregí el código para que app.py use las funciones existentes del repositorio ubicadas en src/. No quiero que el dashboard reemplace la lógica del backend, sino que actúe como interfaz web conectada a los módulos ya creados.
+
+Iteración 2:
+La IA no estaba mostrando los errores de validación de forma visual.
+
+Prompt de corrección:
+Agregá manejo de excepciones con try/except. Si ocurre un ValueError durante la carga o validación del archivo, debe mostrarse con st.error y debe frenarse la ejecución con st.stop().
+
+Iteración 3:
+La IA no estaba mostrando indicadores clave.
+
+Prompt de corrección:
+Agregá KPIs usando st.metric. Quiero ver cantidad de registros, cantidad de participantes, tiempo total de uso y promedio general de uso.
+
+
+REFLEXIÓN TÉCNICA
+
+La estrategia que facilitó obtener un código correcto fue separar claramente el rol, el objetivo, el contexto y la acción esperada. También fue útil aclarar que la interfaz no debía reemplazar el backend, sino conectarse con los módulos existentes. Pedir explícitamente el uso de st.file_uploader, st.error, st.metric y st.image permitió que la IA respetara mejor los requisitos técnicos de la consigna.
