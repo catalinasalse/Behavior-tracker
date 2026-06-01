@@ -97,85 +97,58 @@ Promedio de uso de un participante.
 Uso total por aplicación.
 
 # Implementación con Matplotlib
-
 El programa utiliza Matplotlib para generar gráficos a partir de los datos procesados.
-
 Los gráficos se guardan automáticamente en la carpeta graficos/, ubicada en la raíz del repositorio.
-
 La carpeta se crea automáticamente desde el código usando os.makedirs("graficos", exist_ok=True). Esto permite que el programa funcione aunque la carpeta todavía no exista.
 
 # Gráficos generados
-
 El programa genera tres gráficos en formato .png:
-
 uso_por_app.png: gráfico de barras que muestra el tiempo total de uso por aplicación.
 evolucion_temporal.png: gráfico de líneas que muestra la evolución del tiempo de uso por fecha.
 distribucion_tiempo.png: gráfico de caja que muestra la distribución del tiempo de uso.
 
 ## Funciones que se deberían modificar
-
 Para implementar Pandas, se deberían modificar principalmente estas funciones:
-
 - `cargar_datos()`: debería usar `pd.read_csv()` para cargar el archivo CSV y devolver un `DataFrame`.
 - `validar_registro()` o funciones de validación: para validar columnas completas del `DataFrame`, por ejemplo valores vacíos, tipos de datos y valores negativos.
 - `filtrar_por_participante()`: debería filtrar los datos usando la columna `id_participante`
 - `calcular_tiempo_total()`: podría usar `.sum()` sobre la columna `tiempo_uso`.
-
 También debería adaptarse el `main.py`, ya que el programa pasaría a trabajar con un `DataFrame` en lugar de listas o diccionarios.
+
+## Guía de Ejecución de la Interfaz Web
+Además del programa por consola, el proyecto cuenta con una interfaz web desarrollada con Streamlit.
+Para ejecutar el dashboard, primero se deben instalar las librerías necesarias:                                                                                ```bash 
+pip install streamlit pandas matplotlib
 
 ## Instrucciones de uso 
 1. Ejecutar el programa
-
 Abrir el proyecto y ejecutar el archivo principal:
 
 ```bash
 python main.py
 
 2. Esperar la carga de datos
-
 El sistema cargará automáticamente el archivo CSV ubicado en la carpeta datos/.
-
 Luego, validará que los datos estén completos y tengan el formato correcto.
 
 3. Ingresar el ID del participante
-
 El programa pedirá ingresar el ID del participante que se desea consultar.
-
 Ejemplo:
-
 Ingrese el ID del participante: 1
-
 El ID debe ser un número entero positivo.
 
 4. Consultar los resultados
-
 Después de ingresar el ID, el sistema mostrará en pantalla las métricas principales del participante:
-
 Tiempo total de uso de aplicaciones.
 Promedio de tiempo de uso.
 Uso total por aplicación.
 
 5. Revisar los gráficos generados
-
 Al finalizar la ejecución, el programa generará automáticamente gráficos en formato .png.
-
 Estos gráficos se guardarán dentro de la carpeta:
-
 graficos/
-
 Los gráficos permiten visualizar:
 
 El uso total por aplicación.
 La evolución temporal del tiempo de uso.
 La distribución general del tiempo de uso.
-
-
-### Guía de Ejecución de la Interfaz Web
-
-Además del programa por consola, el proyecto cuenta con una interfaz web desarrollada con Streamlit.
-
-Para ejecutar el dashboard, primero se deben instalar las librerías necesarias:
-
-```bash
-pip install streamlit pandas matplotlib
-
