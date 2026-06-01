@@ -1,18 +1,24 @@
-def filtrar_por_participante(datos: list, id_participante: int) -> list:
+import pandas as pd
+
+
+def filtrar_por_participante(df: pd.DataFrame, id_participante: int) -> pd.DataFrame:
     """
-    Devuelve los registros correspondientes a un participante específico.
+    Filtra los registros de un participante específico.
 
     Parámetros:
-    datos (list): lista de registros.
+    df (pd.DataFrame): DataFrame con todos los registros.
     id_participante (int): ID del participante a filtrar.
 
     Retorna:
-    dicc: diccionario del participante o None si no existe
+    pd.DataFrame: DataFrame con los registros del participante.
+
+    Raises:
+    ValueError: Si el participante no existe.
     """
 
+    df_filtrado = df[df["id_participante"] == id_participante]
 
-    for participante in datos:
-        if participante["id_participante"] == id_participante:
-            return participante
+    if df_filtrado.empty:
+        raise ValueError("No existe un participante con ese ID.")
 
-    return None
+    return df_filtrado
