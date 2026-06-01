@@ -170,7 +170,7 @@ La evolución temporal del tiempo de uso.
 La distribución general del tiempo de uso.
 
 
-## Guía de Ejecución de la Interfaz Web
+### Guía de Ejecución de la Interfaz Web
 
 Además del programa por consola, el proyecto cuenta con una interfaz web desarrollada con Streamlit.
 
