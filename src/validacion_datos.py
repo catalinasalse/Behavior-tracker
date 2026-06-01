@@ -1,51 +1,63 @@
-from datetime import datetime
+import pandas as pd
 
-def validar_registro(registro: dict) -> bool:
+
+def validar_datos(df: pd.DataFrame) -> None:
     """
-    Verifica que un registro tenga tipos correctos y valores válidos.
+    Valida que el DataFrame tenga las columnas, tipos y valores esperados.
 
     Parámetros:
-    registro (dict): registro a validar.
+    df (pd.DataFrame): DataFrame con los datos de uso de aplicaciones.
 
     Retorna:
-    bool: True si el registro es válido, False en caso contrario.
+    None
+
+    Raises:
+    ValueError: Si el DataFrame no cumple alguna regla de validación.
     """
+
+    columnas_esperadas = [
+        "id_participante",
+        "fecha",
+        "app",
+        "cantidad_uso",
+        "tiempo_uso"
+    ]
+
     apps_validas = ["instagram", "whatsapp", "youtube", "tiktok"]
 
+    if df.empty:
+        raise ValueError("El archivo está vacío.")
 
-    if type(registro["id_participante"]) != int:
-        return False
+    for columna in columnas_esperadas:
+        if columna not in df.columns:
+            raise ValueError(f"Falta la columna obligatoria: {columna}")
 
-    if type(registro["fecha"]) != str:
-        return False
-
-    if type(registro["app"]) != str:
-        return False
-
-    if type(registro["cantidad_uso"]) != int:
-        return False
-
-    if type(registro["tiempo_uso"]) != float:
-        return False
-
-    if registro["cantidad_uso"] < 0:
-        return False
-
-    if registro["tiempo_uso"] < 0:
-        return False
-
-    if registro["tiempo_uso"] > 1440:
-        return False
-
-    if registro["app"] not in apps_validas:
-        return False
+    if df[columnas_esperadas].isnull().any().any():
+        raise ValueError("El archivo contiene valores vacíos.")
 
     try:
-        datetime.strptime(registro["fecha"], "%d/%m/%Y")
+        df["id_participante"] = df["id_participante"].astype(int)
+        df["cantidad_uso"] = df["cantidad_uso"].astype(int)
+        df["tiempo_uso"] = df["tiempo_uso"].astype(float)
     except ValueError:
-        return False
+        raise ValueError("Hay columnas numéricas con valores inválidos.")
 
-    return True
-    
+    if (df["id_participante"] <= 0).any():
+        raise ValueError("El ID del participante debe ser positivo.")
 
-    return True
+    if (df["cantidad_uso"] < 0).any():
+        raise ValueError("La cantidad de uso no puede ser negativa.")
+
+    if (df["tiempo_uso"] < 0).any():
+        raise ValueError("El tiempo de uso no puede ser negativo.")
+
+    if (df["tiempo_uso"] > 1440).any():
+        raise ValueError("El tiempo de uso no puede superar 1440 minutos.")
+
+    if not df["app"].isin(apps_validas).all():
+        raise ValueError("Hay aplicaciones no válidas.")
+
+    try:
+        pd.to_datetime(df["fecha"], format="%d/%m/%Y")
+    except ValueError:
+        raise ValueError("Hay fechas con formato incorrecto. El formato debe ser dd/mm/aaaa.")
