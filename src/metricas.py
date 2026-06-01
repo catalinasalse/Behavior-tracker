@@ -1,62 +1,62 @@
-def calcular_tiempo_total(datos: list) -> float:
+import pandas as pd
+
+
+def calcular_tiempo_total(df: pd.DataFrame) -> float:
     """
-    Calcula el tiempo total de uso sumando todos los registros.
+    Calcula el tiempo total de uso.
 
     Parámetros:
-    registros(list): lista de registros.
+    df (pd.DataFrame): DataFrame con los registros de uso.
 
     Retorna:
-    float: tiempo total de uso.
+    float: suma total de la columna tiempo_uso.
     """
 
-    total = 0.0
-
-    for registro in datos:
-        total += registro["tiempo_uso"]
-
-    return total
+    return df["tiempo_uso"].sum()
 
 
-def calcular_promedio_uso(datos: list) -> float:
+def calcular_promedio_uso(df: pd.DataFrame) -> float:
     """
     Calcula el promedio de tiempo de uso.
 
     Parámetros:
-    registros(list): lista de registros.
+    df (pd.DataFrame): DataFrame con los registros de uso.
 
     Retorna:
-    float: promedio de uso.
+    float: promedio de la columna tiempo_uso.
     """
 
-    if len(datos) == 0:
+    if df.empty:
         return 0.0
 
-    total = calcular_tiempo_total(datos)
-    promedio = total / len(datos)
-
-    return promedio
+    return df["tiempo_uso"].mean()
 
 
-def calcular_uso_por_app(datos: list) -> dict:
+def calcular_uso_por_app(df: pd.DataFrame) -> pd.Series:
     """
-    Calcula el tiempo total de uso por aplicación.
+    Calcula el tiempo total de uso agrupado por aplicación.
 
     Parámetros:
-    registros(list): lista de registros.
+    df (pd.DataFrame): DataFrame con los registros de uso.
 
     Retorna:
-    dict: diccionario con app como clave y tiempo total como valor.
+    pd.Series: tiempo total por aplicación.
     """
 
-    uso_por_app = {}
+    return df.groupby("app")["tiempo_uso"].sum()
 
-    for registro in datos:
-        app = registro["app"]
-        tiempo = registro["tiempo_uso"]
 
-        if app in uso_por_app:
-            uso_por_app[app] += tiempo
-        else:
-            uso_por_app[app] = tiempo
+def calcular_promedio_por_app(df: pd.DataFrame) -> pd.Series:
+    """
+    Calcula el promedio de uso por aplicación.
+    """
 
-    return uso_por_app
+    return df.groupby("app")["tiempo_uso"].mean()
+
+
+def calcular_promedio_por_participante(df: pd.DataFrame) -> pd.Series:
+    """
+    Calcula el promedio de uso por participante.
+    """
+
+    return df.groupby("id_participante")["tiempo_uso"].mean()
