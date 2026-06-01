@@ -115,11 +115,6 @@ Para implementar Pandas, se deberían modificar principalmente estas funciones:
 - `calcular_tiempo_total()`: podría usar `.sum()` sobre la columna `tiempo_uso`.
 También debería adaptarse el `main.py`, ya que el programa pasaría a trabajar con un `DataFrame` en lugar de listas o diccionarios.
 
-## Guía de Ejecución de la Interfaz Web
-Además del programa por consola, el proyecto cuenta con una interfaz web desarrollada con Streamlit.
-Para ejecutar el dashboard, primero se deben instalar las librerías necesarias:                                                                                ```bash 
-pip install streamlit pandas matplotlib
-
 ## Instrucciones de uso 
 1. Ejecutar el programa
 Abrir el proyecto y ejecutar el archivo principal:
@@ -152,3 +147,9 @@ Los gráficos permiten visualizar:
 El uso total por aplicación.
 La evolución temporal del tiempo de uso.
 La distribución general del tiempo de uso.
+
+### Guía de Ejecución de la Interfaz Web
+Además del programa por consola, el proyecto cuenta con una interfaz web desarrollada con Streamlit.
+Para ejecutar el dashboard, primero se deben instalar las librerías necesarias:
+```bash 
+pip install streamlit pandas matplotlib
