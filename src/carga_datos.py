@@ -17,13 +17,18 @@ def cargar_datos(ruta: str) -> pd.DataFrame:
     """
 
     try:
-        df = pd.read_csv(ruta)
+        df = pd.read_csv(ruta, sep=None, engine="python")
     except FileNotFoundError:
         raise FileNotFoundError("No se encontró el archivo CSV.")
     except pd.errors.EmptyDataError:
         raise ValueError("El archivo CSV está vacío.")
-    except Exception:
-        raise ValueError("No se pudo leer el archivo CSV.")
+    except UnicodeDecodeError:
+        try:
+            df = pd.read_csv(ruta, sep=None, engine="python", encoding="latin1")
+        except Exception:
+            raise ValueError("No se pudo leer el archivo CSV.")
+    except Exception as error:
+        raise ValueError(f"No se pudo leer el archivo CSV. Detalle: {error}")
 
     return df
     
